@@ -23,3 +23,15 @@ The following image shows the program in operation on a 20 city TSP routing. The
  The yellow curve in the top section represents the traveling distances for all the historical previous evolved states. The horizontal axis is the Nth member that possessed better minimum distance and the vertical axis represents the traveling distance. The small dots in curve are at each new state. This yellow curve is in essence an evolution time line showing how significant each change is relative to the **_past changes_**.
 
  The routes and data for all the previous evolved states will be displayed when the mouse is moved horizontally across the top section. At each previous state the yellow curve represents the evolution history **_up to the displayed historical state_**. In other words picking a place on the yellow curve to show a particular state **_is not going to show what you hope to see_**.
+
+**The Controls**
+* Button &ndash; Restart(New Routes etc.)
+  - Restarts the evolution from scratch using the control settings indicated.
+* Input &ndash; Number Of Cities
+  - Sets the number of cities. This number must be 4 or larger.
+* Input &ndash; Population Pool Size
+  - The population size for the pool of travel route orders (i.e. organisms) upon which the GA reproduction is performed. Each member in the pool will be evaluated for distance and judged based upon distance. The pool is constantly being regenerated from members selected from the previous pool.
+* Checkbox &ndash; Inject Wild DNA
+  - When checked, one of the travel route order members used in the travel route order crossovers used to generate _one_ of next generation travel route pools will be "totally wild", i.e. a random travel order arrangement, instead of being a selection from the judged "evolved" pool normally used in the simulated reproduction algorithm.
+* Slider &ndash; Random One Position Mutation Rate
+  - Sets the rate (i.e. probability) that one pair of cities will be swapped in the route order of each population pool member.
