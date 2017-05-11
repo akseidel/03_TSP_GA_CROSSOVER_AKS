@@ -159,7 +159,7 @@ function pickOne() {
   // Pick a random number between 0 and 1
   var r = random(1);
   // Keep subtracting probabilities until you get less than zero
-  // Higher probabilities will be more likely to be fixed since they will
+  // Higher probabilities will be more likely to be picked since they will
   // subtract a larger number towards zero
   while (r > 0) {
     r -= population[index].fitness;
