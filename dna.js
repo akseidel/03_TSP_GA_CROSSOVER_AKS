@@ -25,7 +25,7 @@ function DNA(total, order) {
     // Just copy the order
     this.order = order.slice();
     // Mutation
-    // 50% of the time shuffle one spot to see if it improves
+    // murate % of the time shuffle one spot
     if (random(1) < murate) {
       this.shuffle();
     }
