@@ -60,8 +60,21 @@ function setup() {
 
   // DOM
   createP("");
-  butRestart = createButton('New Routes etc.');
+  butRestart = createButton('Restart (New Routes etc.)');
   butRestart.mousePressed(reStart);
+  var nctxt =  "Number Of Cities: ";
+  inpnctxt = createP(nctxt);
+  inpnctxt.position(butRestart.position().x +  butRestart.width + 10 ,butRestart.position().y - butRestart.height*.9);
+  ncInput = createInput(totalCities);
+  ncInput.size(36);
+  ncInput.position(inpnctxt.position().x + textWidth(nctxt) + 30, butRestart.position().y - ncInput.height*.2);
+  var poptxt =  "Population Pool Size: ";
+  ppoptxt = createP(poptxt);
+  ppoptxt.position(ncInput.position().x + ncInput.width + 10, butRestart.position().y - ppoptxt.height*.9);
+  popInput = createInput(popTotal);
+  popInput.size(48);
+  popInput.position(ppoptxt.position().x + textWidth(poptxt) + 30, butRestart.position().y - popInput.height*.2);
+
 }
 
 function draw() {
@@ -204,6 +217,19 @@ function reStart(){
 
 // restart initializations
 function doReStart(){
+  if (ncInput.value() >= 4){
+    totalCities = ncInput.value();
+  } else {
+    totalCities = 4;
+    ncInput.value(4);
+  }
+  if (popInput.value() >= 1){
+    popTotal = popInput.value();
+  } else {
+    popTotal = 1000;
+    popInput.value(1000);
+  }
+  population.splice(0,population.length);
   startNewCitySet();
   makeAllNewRandomDNA();
   recordDistance = Infinity;
