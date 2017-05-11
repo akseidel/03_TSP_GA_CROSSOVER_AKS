@@ -47,6 +47,6 @@ Do not try to pick a place on the yellow curve to show a particular state. **_Do
 * A new population of travel order routes is created by combining pieces of a pair of order routes selected using the better fitting members selection method.
   * The piece combination process is a mock crossover method where positions in one travel order pair are selected at random to mark where the route order is deleted. The route order collapses around the deleted section. The missing cities are then selected from the start of the other travel order, ignoring any cities that are already present in the new route order.
   * The **Inject Wild DNA** option uses one random route routing for one of the crossover pairs when creating one of the next population pools.
-* After crossover, each population pool route order member is subjected to the chance that one of its route cities will be swapped with another one of its route cities. The chance that this happens is controlled by the "Random One Position Mutation Rate".
+* After crossover, each population pool route order member is subjected to the chance that one of its route cities will be swapped with another one of its route cities. The chance that this happens is controlled by the **Random One Position Mutation Rate**.
     * At this point the new population has been created. It is ready to be evaluated for fitness.
     * Each pool member is checked to see if it will become a new best fitness qualifier.
