@@ -29,15 +29,15 @@ The routes and data for all the previous evolved states will be displayed when t
 Do not try to pick a place on the yellow curve to show a particular state. **_Doing that is not going to show what you hope to see_**. Picking on the yellow curve is how the interface should have been designed, but how to do that was not realized.
 
 **The Controls**
-* Button &ndash; Restart(New Routes etc.)
+* Button &ndash; **Restart(New Routes etc.)**
   - Restarts the evolution from scratch using the control settings indicated.
-* Input &ndash; Number Of Cities
+* Input &ndash; **Number Of Cities**
   - Sets the number of cities. This number must be 4 or larger.
-* Input &ndash; Population Pool Size
+* Input &ndash; **Population Pool Size**
   - The population size for the pool of travel route orders (i.e. organisms) upon which the GA reproduction is performed. Each member in the pool will be evaluated for distance and judged based upon distance. The pool is constantly being regenerated from members selected from the previous pool.
-* Checkbox &ndash; Inject Wild DNA
+* Checkbox &ndash; **Inject Wild DNA**
   - When checked, one of the travel route order members used in the travel route order crossovers used to generate _one_ member of next generation travel route pools will be "totally wild". Its cities order will be a random travel order arrangement instead of being a travel order selected from the judged "evolved" pool normally used in the simulated reproduction algorithm. The injection happens prior to crossover.
-* Slider &ndash; Random One Position Mutation Rate
+* Slider &ndash; **Random One Position Mutation Rate**
   - Sets the rate (i.e. probability) that one pair of cities will be swapped in the route order of each population pool member.
 
 **The Genetic Algorithm (GA)**
