@@ -51,6 +51,7 @@ function setup() {
   routeColor = color(255,255,255);
   firstColor = color(0,255,0);
   canvas = createCanvas(600, 600);
+  canvas.parent('canvascontainer');
   // initializations
   startNewCitySet();
   makeAllNewRandomDNA();
@@ -200,7 +201,7 @@ function addWildHair(){
 function adjMurate(){
   murate  = sliderMurate.value()/100;
   // update the DOMs
-  slMuratetxt.elt.innerText = "One Position Mutation Rate: " + murate;
+  slMuratetxt.elt.innerText = murate + " Random One Position Mutation Rate";
 }
 
 // restart initializations
@@ -253,9 +254,9 @@ function DOMinator(){
   chkboxWH.changed(addWildHair);
   sliderMurate = createSlider(0, 100, murate*100);
   sliderMurate.position(inpnctxt.position().x  ,pwhtxt.position().y );
-  var muratetxt = "One Position Mutation Rate: " + murate;
+  var muratetxt = murate + " Random One Position Mutation Rate";
   slMuratetxt = createP(muratetxt);
   slMuratetxt.position(sliderMurate.position().x +  sliderMurate.width + 10 ,pwhtxt.position().y - pwhtxt.height*.9);
-  //sliderMurate.changed(adjMurate);
+  //sliderMurate.changed(adjMurate); // this event only fires after the slider is changed.
 
 }

@@ -6,7 +6,7 @@
 // Evolve Traveling Salesperson
 
 // mutation rate for one pair on an existing order
-var murate = 0.4;
+var murate = 0.04;
 
 // A generic function to swap two elements in an array
 function swap(a, i, j) {
