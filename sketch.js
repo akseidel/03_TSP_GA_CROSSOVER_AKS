@@ -40,8 +40,6 @@ var popTotal = 2000;
 
 // Evolution history
 var evolHist = [];
-// reset flag
-var didReset = false;
 // wild hair flag
 var addWild = false;
 
@@ -54,24 +52,17 @@ function setup() {
   firstColor = color(0,255,0);
   canvas = createCanvas(600, 600);
   canvas.parent('canvascontainer');
-  kb = select('#KeepBest');
+  // initializations
   startNewCitySet();
   makeAllNewRandomDNA();
-
-  // DOM
-  createP("");
-  butRestart = createButton('New Routes etc.');
-  butRestart.mousePressed(reStart);
+  // Do the DOM
+  DOMinator();
 }
 
 function draw() {
-  // reset button
-  if (didReset){
-    doReStart();
-    didReset = false;
-  }
-
   background(backColor);
+  // because there is not a slider is moving event
+  adjMurate();
   // Each round let's find the best and worst
   var minDist = Infinity;
   var maxDist = 0;
@@ -197,17 +188,75 @@ function makeAllNewRandomDNA(){
   }
 }
 
-// reStart with current settings
-function reStart(){
-  didReset = true;
+// inject wild DNA flag
+function addWildHair(){
+  if (chkboxWH.elt.checked) {
+    addWild = true;
+  } else {
+    addWild = false;
+  }
+}
+
+// adjust Murate per slider sliderMurate action
+function adjMurate(){
+  murate  = sliderMurate.value()/100;
+  // update the DOMs
+  slMuratetxt.elt.innerText = murate + " Random One Position Mutation Rate";
 }
 
 // restart initializations
 function doReStart(){
+  if (ncInput.value() >= 4){
+    totalCities = ncInput.value();
+  } else {
+    totalCities = 4;
+    ncInput.value(4);
+  }
+  if (popInput.value() >= 1){
+    popTotal = popInput.value();
+  } else {
+    popTotal = 1000;
+    popInput.value(1000);
+  }
+  population.splice(0,population.length);
   startNewCitySet();
   makeAllNewRandomDNA();
   recordDistance = Infinity;
   gen = 0;
   bestLast.splice(0,bestLast.length);
   evolHist.splice(0,evolHist.length);
+}
+
+// create the DOM elements
+function DOMinator(){
+  createP("");
+  butRestart = createButton('Restart (New Routes etc.)');
+  butRestart.mousePressed(doReStart);//reStart);
+  var nctxt =  "Number Of Cities: ";
+  inpnctxt = createP(nctxt);
+  inpnctxt.position(butRestart.position().x +  butRestart.width + 10 ,butRestart.position().y - butRestart.height*.5);
+  ncInput = createInput(totalCities);
+  ncInput.size(36);
+  ncInput.position(inpnctxt.position().x + textWidth(nctxt) + 10, butRestart.position().y - butRestart.height*.2);
+  var poptxt =  "Population Pool Size: ";
+  ppoptxt = createP(poptxt);
+  ppoptxt.position(ncInput.position().x + ncInput.width + 10, butRestart.position().y - butRestart.height*.5);
+  popInput = createInput(popTotal);
+  popInput.size(48);
+  popInput.position(ppoptxt.position().x + textWidth(poptxt) + 10, butRestart.position().y - butRestart.height*.2);
+  var whtxt = "Inject Wild DNA";
+  pwhtxt = createP(whtxt);
+  chkboxWH = createInput();
+  chkboxWH.size(14,14);
+  chkboxWH.attribute("type","checkbox");
+  chkboxWH.position(pwhtxt.position().x + textWidth(whtxt) + 18, pwhtxt.position().y - pwhtxt.height*.1);
+  //chkboxWH.attribute('checked', null);
+  chkboxWH.changed(addWildHair);
+  sliderMurate = createSlider(0, 100, murate*100);
+  sliderMurate.position(inpnctxt.position().x  ,pwhtxt.position().y );
+  var muratetxt = murate + " Random One Position Mutation Rate";
+  slMuratetxt = createP(muratetxt);
+  slMuratetxt.position(sliderMurate.position().x +  sliderMurate.width + 10 ,pwhtxt.position().y - pwhtxt.height*.9);
+  //sliderMurate.changed(adjMurate); // this event only fires after the slider is changed.
+
 }

@@ -6,7 +6,7 @@
 // Evolve Traveling Salesperson
 
 // mutation rate for one pair on an existing order
-var murate = 0.4;
+var murate = 0.04;
 
 // A generic function to swap two elements in an array
 function swap(a, i, j) {
@@ -25,7 +25,7 @@ function DNA(total, order) {
     // Just copy the order
     this.order = order.slice();
     // Mutation
-    // 50% of the time shuffle one spot to see if it improves
+    // murate % of the time shuffle one spot
     if (random(1) < murate) {
       this.shuffle();
     }

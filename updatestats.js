@@ -26,7 +26,9 @@ function StatsBestLast(){
 function ShowHistory(){
   // scrubHistory becomes evolHist.length-1 when mouse is
   // not in the history panel
+
   var hindx = scrubHistory();
+  if (hindx < 1){ return;}
   var eHMinX = evolHist[0].x;
   var eHMaxY = evolHist[0].y;
   var eHMaxX = evolHist[hindx-1].x;
@@ -61,7 +63,7 @@ function genbepbet(){
   var lindx = evolHist.length-1;
   bep = 0;
   bet = 0;
-  if (lindx >= 0){
+  if (lindx >= 1){
     var lc = evolHist[lindx-1].y - evolHist[lindx].y;
     bep = 100 * lc / evolHist[lindx].y;
     bet = evolHist[lindx].x;
@@ -91,7 +93,6 @@ function scrubHistory(){
     if(mouseX >= dmargin && mouseX <= rSide){
       x = floor(map(mouseX,dmargin,rSide,1,evolHist.length-1));
     }
-}
-  //console.log(x);
+  }
   return x;
 }
