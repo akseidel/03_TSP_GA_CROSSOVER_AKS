@@ -24,7 +24,7 @@ That 1,776.91 distance is a 4.309% change from the previous 19th organism's dist
 
 The yellow curve in the top section represents the traveling distances for all the historical previous evolved states. The horizontal axis is the Nth member that possessed better minimum distance and the vertical axis represents the traveling distance. The small dots in curve are at each new state. This yellow curve is in essence an evolution time line showing how significant each change is relative to the **_past changes_**.
 
-The routes and data for all the previous evolved states will be displayed when the mouse is moved horizontally across the top section. At each previous state the yellow curve represents the evolution history **_up to the displayed historical state_**. Look at what the "Route:" number is when moving the mouse sideways on the top section to navigate the evolution history.
+The routes and data for all the previous evolved states will be displayed when the mouse is moved horizontally across the top section. Two history curves appear when displaying evolution history prior to the second to last evolution state. One is the total history curve and the paler, thinner yellow curve represents the evolution history **_up to the displayed historical state_**. Look at what the "Route:" number is when moving the mouse sideways on the top section to navigate the evolution history.
 
 Do not try to pick a place on the yellow curve to show a particular state. **_Doing that is not going to show what you hope to see_**. Picking on the yellow curve is how the interface should have been designed, but how to do that was not realized.
 

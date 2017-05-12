@@ -14,7 +14,7 @@ var firstColor ;
 
 // Cities
 var cities = [];
-var totalCities = 20;
+var totalCities = 14;
 
 // Best path overall
 var recordDistance = Infinity;
@@ -36,16 +36,19 @@ var lct = 0; // time of last change scrub
 
 // Population of possible routes
 var population = [];
-var popTotal = 2000;
+var popTotal = 1400;
 
 // Evolution history
 var evolHist = [];
+// Evolution history curve
+var evolHCurve = [];
 // wild hair flag
 var addWild = false;
 
 function setup() {
   // colors in use
-  histColor = color(255,200,0);
+  histColor1 = color(255,200,0,80);
+  histColor2 = color(255,200,0);
   textColor = color(255,255,255);
   backColor = color(0,0,100);
   routeColor = color(255,255,255);
@@ -225,6 +228,7 @@ function doReStart(){
   gen = 0;
   bestLast.splice(0,bestLast.length);
   evolHist.splice(0,evolHist.length);
+  evolHCurve.splice(0,evolHCurve.length);
 }
 
 // create the DOM elements
