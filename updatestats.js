@@ -33,15 +33,32 @@ function ShowHistory(){
   var eHMaxY = evolHist[0].y;
   var eHMaxX = evolHist[hindx-1].x;
   var eHMinY = evolHist[hindx-1].y;
-  stroke(histColor);
+  stroke(histColor1);
   strokeWeight(2);
   noFill();
+  // history curve up to the scrubHistory only
   beginShape();
   for (var i = 0; i < hindx; i++ ){
     var x = map(evolHist[i].x,eHMinX,eHMaxX,dmargin,width - dmargin);
     var y = map(evolHist[i].y,eHMinY,eHMaxY,height/2 - dmargin/2, dmargin + dmargin/2);
     vertex(x, y);
     ellipse(x,y, 2, 2);
+  }
+  endShape();
+  // the full history curve
+  stroke(histColor2);
+  eHMaxX = evolHist[evolHist.length-2].x;
+  eHMinY = evolHist[evolHist.length-2].y;
+  beginShape();
+  for (var i = 0; i < evolHist.length-1; i++ ){
+    var x = map(evolHist[i].x,eHMinX,eHMaxX,dmargin,width - dmargin);
+    var y = map(evolHist[i].y,eHMinY,eHMaxY,height/2 - dmargin/2, dmargin + dmargin/2);
+    vertex(x, y);
+    ellipse(x,y, 2, 2);
+    if (i > (evolHCurve.length-1)){
+      var v = createVector(x,y);
+      evolHCurve.push(v);
+    }
   }
   endShape();
 }
@@ -87,7 +104,7 @@ function msgLine(txtItems,txo,tyo,spc){
 // instead the history curve is redrawn to show up
 // to the mapped mouseX.
 function scrubHistory(){
-  var x = evolHist.length-1;
+  var x = evolHist.length-1; // default value
   if (mouseY < height/2){
     var rSide = width - dmargin;
     if(mouseX >= dmargin && mouseX <= rSide){
