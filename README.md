@@ -26,8 +26,6 @@ The yellow curve in the top section represents the traveling distances for all t
 
 The routes and data for all the previous evolved states will be displayed when the mouse is moved horizontally across the top section. Two history curves appear when displaying evolution history prior to the second to last evolution state. One is the total history curve and the paler, thinner yellow curve represents the evolution history **_up to the displayed historical state_**. Look the "Route:" number when moving the mouse sideways on the top section to navigate the evolution history.
 
-Do not try to pick a place on the yellow curve to show a particular state. **_Doing that is not going to show what you hope to see_**. Picking on the yellow curve is how the interface should have been designed, but how to do that was not realized.
-
 **The Controls**
 * Button &ndash; **Restart(New Routes etc.)**
   - Restarts the evolution from scratch using the control settings indicated.
