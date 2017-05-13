@@ -28,7 +28,7 @@ The routes and data for all the previous evolved states will be displayed when t
 
 ![ScreenShot](./images/ScreenShot02.png)
 
-One is the total history curve and the paler, thinner yellow curve represents the evolution history **_up to the displayed historical state_**. Look the "Route:" number when moving the mouse sideways on the top section to navigate the evolution history.
+One is the total history curve and the paler, thinner yellow curve represents the evolution history **_up to the displayed historical state_**. Look at the "Route:" number when moving the mouse sideways on the top section to navigate the evolution history. The larger node on the total history curve shows where the displayed route occurs in the total history curve.
 
 **The Controls**
 * Button &ndash; **Restart(New Routes etc.)**
