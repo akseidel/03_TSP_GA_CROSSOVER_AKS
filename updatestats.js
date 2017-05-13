@@ -31,14 +31,14 @@ function ShowHistory(){
   if (hindx < 1){ return;}
   var eHMinX = evolHist[0].x;
   var eHMaxY = evolHist[0].y;
-  var eHMaxX = evolHist[hindx-1].x;
-  var eHMinY = evolHist[hindx-1].y;
+  var eHMaxX = evolHist[hindx].x;
+  var eHMinY = evolHist[hindx].y;
   stroke(histColor1);
   strokeWeight(2);
   noFill();
   // history curve up to the scrubHistory only
   beginShape();
-  for (var i = 0; i < hindx; i++ ){
+  for (var i = 0; i <= hindx; i++ ){
     var x = map(evolHist[i].x,eHMinX,eHMaxX,dmargin,width - dmargin);
     var y = map(evolHist[i].y,eHMinY,eHMaxY,height/2 - dmargin/2, dmargin + dmargin/2);
     vertex(x, y);
@@ -47,10 +47,10 @@ function ShowHistory(){
   endShape();
   // the full history curve
   stroke(histColor2);
-  eHMaxX = evolHist[evolHist.length-2].x;
-  eHMinY = evolHist[evolHist.length-2].y;
+  eHMaxX = evolHist[evolHist.length-1].x;
+  eHMinY = evolHist[evolHist.length-1].y;
   beginShape();
-  for (var i = 0; i < evolHist.length-1; i++ ){
+  for (var i = 0; i <= evolHist.length-1; i++ ){
     var x = map(evolHist[i].x,eHMinX,eHMaxX,dmargin,width - dmargin);
     var y = map(evolHist[i].y,eHMinY,eHMaxY,height/2 - dmargin/2, dmargin + dmargin/2);
     vertex(x, y);
@@ -61,6 +61,20 @@ function ShowHistory(){
     }
   }
   endShape();
+  // // the segment that corresponds to the scrub hindx
+  strokeWeight(3);
+  stroke(255,110,0);
+  eHMaxX = evolHist[evolHist.length-1].x;
+  eHMinY = evolHist[evolHist.length-1].y;
+  // beginShape();
+  //for (var i = hindx-1; i <= hindx; i++ ){
+    var x = map(evolHist[hindx-1].x,eHMinX,eHMaxX,dmargin,width - dmargin);
+    var y = map(evolHist[hindx-1].y,eHMinY,eHMaxY,height/2 - dmargin/2, dmargin + dmargin/2);
+    // vertex(x, y);
+    ellipse(x,y, 4, 4);
+  // }
+  // endShape();
+
 }
 
 // calc history stats via scrub
