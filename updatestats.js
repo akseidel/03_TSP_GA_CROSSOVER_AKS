@@ -26,7 +26,6 @@ function StatsBestLast(){
 function ShowHistory(){
   // scrubHistory becomes evolHist.length-1 when mouse is
   // not in the history panel
-
   var hindx = scrubHistory();
   if (hindx < 1){ return;}
   var eHMinX = evolHist[0].x;
@@ -61,20 +60,14 @@ function ShowHistory(){
     }
   }
   endShape();
-  // // the segment that corresponds to the scrub hindx
+  // // the point that corresponds to the scrub hindx
   strokeWeight(3);
   stroke(255,110,0);
   eHMaxX = evolHist[evolHist.length-1].x;
   eHMinY = evolHist[evolHist.length-1].y;
-  // beginShape();
-  //for (var i = hindx-1; i <= hindx; i++ ){
-    var x = map(evolHist[hindx-1].x,eHMinX,eHMaxX,dmargin,width - dmargin);
-    var y = map(evolHist[hindx-1].y,eHMinY,eHMaxY,height/2 - dmargin/2, dmargin + dmargin/2);
-    // vertex(x, y);
-    ellipse(x,y, 4, 4);
-  // }
-  // endShape();
-
+  var x = map(evolHist[hindx-1].x,eHMinX,eHMaxX,dmargin,width - dmargin);
+  var y = map(evolHist[hindx-1].y,eHMinY,eHMaxY,height/2 - dmargin/2, dmargin + dmargin/2);
+  ellipse(x,y, 4, 4);
 }
 
 // calc history stats via scrub
