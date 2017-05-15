@@ -45,6 +45,8 @@ var evolHist = [];
 var evolHCurve = [];
 // wild hair flag
 var addWild = false;
+// do crossover flag
+var doCrossOver = true;
 
 function setup() {
   // colors in use
@@ -154,12 +156,18 @@ function draw() {
     // Pick two
     var a = pickOne(population);
     var b = pickOne(population);
+    var order;
     // Add a wild hair
     if ((i == 0) && (addWild)){
       b = new DNA(totalCities);
     }
-    // Crossover
-    var order = a.crossover(b);
+    if (doCrossOver){
+      // Crossover
+      order = a.crossover(b);
+    }else{
+      // No crossover and allow single injection
+      order = b;
+    }
     newPop[i] = new DNA(totalCities, order);
   }
   // New population
@@ -224,11 +232,12 @@ function adjPopTotal(){
 
 // inject wild DNA flag
 function addWildHair(){
-  if (chkboxWH.elt.checked) {
-    addWild = true;
-  } else {
-    addWild = false;
-  }
+  addWild = chkboxWH.elt.checked;
+}
+
+// set crossover flag
+function setCrossOverFlag(){
+  doCrossOver = chkboxDC.elt.checked;
 }
 
 // adjust Murate per slider sliderMurate action
@@ -271,12 +280,14 @@ function DOMinator(){
   createP("");
   butRestart = createButton('Restart (New Routes etc.)');
   butRestart.mousePressed(doReStart);//reStart);
+
   var nctxt =  "Number Of Cities: ";
   inpnctxt = createP(nctxt);
   inpnctxt.position(butRestart.position().x +  butRestart.width + 10 ,butRestart.position().y - butRestart.height*.5);
   ncInput = createInput(totalCities);
   ncInput.size(36);
   ncInput.position(inpnctxt.position().x + textWidth(nctxt) + 26, butRestart.position().y - butRestart.height*.2);
+
   var poptxt =  "Population Pool Size: ";
   ppoptxt = createP(poptxt);
   ppoptxt.position(ncInput.position().x + ncInput.width + 10, butRestart.position().y - butRestart.height*.5);
@@ -284,7 +295,8 @@ function DOMinator(){
   popInput.changed(adjPopTotal); // handle on the fly popTotal changed
   popInput.size(48);
   popInput.position(ppoptxt.position().x + textWidth(poptxt) + 26, butRestart.position().y - butRestart.height*.2);
-  var whtxt = "Inject Wild DNA";
+
+  var whtxt = "Inject Wild DNA: ";
   pwhtxt = createP(whtxt);
   chkboxWH = createInput();
   chkboxWH.size(14,14);
@@ -292,10 +304,20 @@ function DOMinator(){
   chkboxWH.position(pwhtxt.position().x + textWidth(whtxt) + 18, pwhtxt.position().y - pwhtxt.height*.1);
   //chkboxWH.attribute('checked', null);
   chkboxWH.changed(addWildHair); // handle on the fly wild hair change
+
   sliderMurate = createSlider(0, 100, murate*100);
   sliderMurate.position(inpnctxt.position().x  ,pwhtxt.position().y );
   var muratetxt = murate + " Random One Position Mutation Rate";
   slMuratetxt = createP(muratetxt);
   slMuratetxt.position(sliderMurate.position().x +  sliderMurate.width + 10 ,pwhtxt.position().y - pwhtxt.height*.9);
   //sliderMurate.changed(adjMurate); // this event only fires after the slider is changed.
+
+  var dctxt = "DNA Crossover: ";
+  pdctxt = createP(dctxt);
+  chkboxDC = createInput();
+  chkboxDC.size(14,14);
+  chkboxDC.attribute("type","checkbox");
+  chkboxDC.position(pdctxt.position().x + textWidth(dctxt) + 18, pdctxt.position().y - pdctxt.height*.1);
+  chkboxDC.attribute('checked', null);
+  chkboxDC.changed(setCrossOverFlag); // handle on the fly crossover change
 }
