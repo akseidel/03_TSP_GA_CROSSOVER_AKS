@@ -33,7 +33,9 @@ The routes and data for all the previous evolved states will be displayed when t
 One is the total history curve and the paler, thinner yellow curve represents the evolution history **_up to the displayed historical state_**. Look at the "Route:" number when moving the mouse sideways on the top section to navigate the evolution history. The larger node on the total history curve shows where the displayed route occurs in the total history curve.
 
 **The Controls**
+
 ![ScreenShot](./images/ScreenShot03.png)
+
 * Button &ndash; **Restart(New Routes etc.)**
   - Restarts the evolution from scratch using the control settings indicated.
 * Input &ndash; **Number Of Cities**
@@ -47,7 +49,7 @@ One is the total history curve and the paler, thinner yellow curve represents th
   - Sets the rate (i.e. probability) that one pair of cities will be swapped in the route order of each population pool member.
 * Checkbox &ndash; **DNA Crossover:**
   - The GA reproduction does a simple DNA crossover when generating the next members.
-  - The single wild DNA can still occur if checked when crossovers are not to occur. 
+  - The single wild DNA can still occur if checked when crossovers are not to occur.
 
 **The Genetic Algorithm (GA)**
 
