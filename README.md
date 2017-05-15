@@ -6,6 +6,8 @@ https://github.com/shiffman/NOC-S17-2-Intelligence-Learning.
 
 This program develops solutions to the "Traveling Salesperson Problem" (TSP) using a genetic algorithm (GA) method. In the TSP there is a given set of "cities". The task is to find the shortest travel distance routing where the salesperson visits each city once, eventually returning to the starting city. The GA method maintains a population of routings that are initially chosen at random but then subsequently evolved from previous "better fitting" routings into newer populations. The evolution uses methods that attempt to emulate simple "genetic" reproduction while also introducing random changes.
 
+What is seen on the screen is a set of dots connected with lines. The dots represent the cities. The lines represent the route traveled from one town to the next.
+
 From a biology viewpoint, the observer should abstract the salesperson routing solutions as representing different evolutionary stages to an organism that evolves in an environment where having a lower distance traveled is an advantage.
 
 The GA reproduction method in this program is crude compared to real life, but in its operation it does exhibit some evolution characteristics. This program is designed for someone to observe how the simple GA evolution proceeds in context with the TSP complexity, mutation rate and genetic population size. The observer can then recognize basic evolution concepts.
@@ -37,6 +39,7 @@ One is the total history curve and the paler, thinner yellow curve represents th
   - Sets the number of cities. This number must be 4 or larger.
 * Input &ndash; **Population Pool Size**
   - The population size for the pool of travel route orders (i.e. organisms) upon which the GA reproduction is performed. Each member in the pool will be evaluated for distance and judged based upon distance. The pool is constantly being regenerated from members selected from the previous pool.
+  - The population size can be changed on the fly. You must press the enter (return) key after making a population size change or you must move the pointer focus out of the population size edit box in order for the change to register.
 * Checkbox &ndash; **Inject Wild DNA**
   - When checked, one of the travel route order members used in the travel route order crossovers used to generate _one_ member of next generation travel route pools will be "totally wild". Its cities order will be a random travel order arrangement instead of being a travel order selected from the judged "evolved" pool normally used in the simulated reproduction algorithm. The injection happens prior to crossover.
 * Slider &ndash; **Random One Position Mutation Rate**
