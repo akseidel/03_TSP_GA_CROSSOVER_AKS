@@ -27,7 +27,6 @@ var tyo = 12; // text offseting in stats
 var txo = 10; // text offseting in stats
 var txtMG = 10; // text offseting in stats
 var txtB1; //
-var gen = 0; // generation counter
 var dmargin = 24; // margin from screen edge
 var bep = 0; // last change % best ever
 var bet = 0; // time of last change best ever
@@ -37,6 +36,8 @@ var lct = 0; // time of last change scrub
 // Population of possible routes
 var population = [];
 var popTotal = 1400;
+var membTotal = 0;
+var popChange = false; // flag to change population on the fly
 
 // Evolution history
 var evolHist = [];
@@ -71,15 +72,15 @@ function draw() {
   var maxDist = 0;
 
   // Search for the best this round and overall
-  gen += 1;
   for (var i = 0; i < population.length; i++) {
+    membTotal += 1;
     var d = population[i].calcDistance();
     // Is this the best ever?
     if (d < recordDistance) {
       recordDistance = d;
       bestLast.push(bestEver);
       bestEver = population[i];
-      var v = createVector( (gen * popTotal) + i, recordDistance);
+      var v = createVector( membTotal, recordDistance);
       evolHist.push(v);
     }
     // Is this the best this round?
@@ -109,6 +110,25 @@ function draw() {
   bestEver.show();
   StatsBestEver();
 
+  // Allow on the fly population change. Do nothing
+  // if popChange flag has not been set.
+  if (popChange){
+    var curlen = population.length;
+    if (popTotal <= curlen){
+      // new popTotal is smaller or equal, so the existing
+      // population can be spliced off
+      population.splice(popTotal,curlen - popTotal);
+    } else {
+      // new popTotal larger, new members need to be added.
+      // These will be random order, ie wild.
+      for (var i = 0; i < (popTotal - curlen); i++){
+          var n = new DNA(totalCities);
+          population.push(n);
+      }
+    }
+    popChange = false;
+  }
+
   // Reproduction
   // Section to evolve the next generation pool
   // based upon crossing DNA from selections from
@@ -119,15 +139,7 @@ function draw() {
   // the population to be first fittness evaluated
   // and then normalized.
   //
-  // Map all the fitness values between 0 and 1
-  var sum = 0;
-  for (var i = 0; i < population.length; i++) {
-    sum += population[i].mapFitness(minDist, maxDist);
-  }
-  // Normalize them to a probability between 0 and 1
-  for (var i = 0; i < population.length; i++) {
-    population[i].normalizeFitness(sum);
-  }
+  judgeFitnessNormalize(minDist, maxDist);
   // The current population is now fittness mapped and
   // normalized. The pickone method will tend to pick
   // the better fitting members. Note that better fitting
@@ -152,6 +164,18 @@ function draw() {
   }
   // New population
   population = newPop;
+}
+
+function judgeFitnessNormalize(minDist, maxDist){
+  // Map all the fitness values between 0 and 1
+  var sum = 0;
+  for (var i = 0; i < population.length; i++) {
+    sum += population[i].mapFitness(minDist, maxDist);
+  }
+  // Normalize them to a probability between 0 and 1
+  for (var i = 0; i < population.length; i++) {
+    population[i].normalizeFitness(sum);
+  }
 }
 
 // This is a new algorithm to select based on fitness probability.
@@ -191,6 +215,13 @@ function makeAllNewRandomDNA(){
   }
 }
 
+// adjust popTotal on the fly
+function adjPopTotal(){
+  getPopInput();
+  // set flag to have the population adjusted
+  popChange = true;
+}
+
 // inject wild DNA flag
 function addWildHair(){
   if (chkboxWH.elt.checked) {
@@ -207,6 +238,15 @@ function adjMurate(){
   slMuratetxt.elt.innerText = murate + " Random One Position Mutation Rate";
 }
 
+function getPopInput(){
+  if (popInput.value() >= 1){
+    popTotal = popInput.value();
+  } else {
+    popTotal = 1000;
+    popInput.value(1000);
+  }
+}
+
 // restart initializations
 function doReStart(){
   if (ncInput.value() >= 4){
@@ -215,17 +255,12 @@ function doReStart(){
     totalCities = 4;
     ncInput.value(4);
   }
-  if (popInput.value() >= 1){
-    popTotal = popInput.value();
-  } else {
-    popTotal = 1000;
-    popInput.value(1000);
-  }
+  getPopInput();
   population.splice(0,population.length);
   startNewCitySet();
   makeAllNewRandomDNA();
   recordDistance = Infinity;
-  gen = 0;
+  membTotal = 0;
   bestLast.splice(0,bestLast.length);
   evolHist.splice(0,evolHist.length);
   evolHCurve.splice(0,evolHCurve.length);
@@ -241,13 +276,14 @@ function DOMinator(){
   inpnctxt.position(butRestart.position().x +  butRestart.width + 10 ,butRestart.position().y - butRestart.height*.5);
   ncInput = createInput(totalCities);
   ncInput.size(36);
-  ncInput.position(inpnctxt.position().x + textWidth(nctxt) + 10, butRestart.position().y - butRestart.height*.2);
+  ncInput.position(inpnctxt.position().x + textWidth(nctxt) + 26, butRestart.position().y - butRestart.height*.2);
   var poptxt =  "Population Pool Size: ";
   ppoptxt = createP(poptxt);
   ppoptxt.position(ncInput.position().x + ncInput.width + 10, butRestart.position().y - butRestart.height*.5);
   popInput = createInput(popTotal);
+  popInput.changed(adjPopTotal); // handle on the fly popTotal changed
   popInput.size(48);
-  popInput.position(ppoptxt.position().x + textWidth(poptxt) + 10, butRestart.position().y - butRestart.height*.2);
+  popInput.position(ppoptxt.position().x + textWidth(poptxt) + 26, butRestart.position().y - butRestart.height*.2);
   var whtxt = "Inject Wild DNA";
   pwhtxt = createP(whtxt);
   chkboxWH = createInput();
@@ -255,12 +291,11 @@ function DOMinator(){
   chkboxWH.attribute("type","checkbox");
   chkboxWH.position(pwhtxt.position().x + textWidth(whtxt) + 18, pwhtxt.position().y - pwhtxt.height*.1);
   //chkboxWH.attribute('checked', null);
-  chkboxWH.changed(addWildHair);
+  chkboxWH.changed(addWildHair); // handle on the fly wild hair change
   sliderMurate = createSlider(0, 100, murate*100);
   sliderMurate.position(inpnctxt.position().x  ,pwhtxt.position().y );
   var muratetxt = murate + " Random One Position Mutation Rate";
   slMuratetxt = createP(muratetxt);
   slMuratetxt.position(sliderMurate.position().x +  sliderMurate.width + 10 ,pwhtxt.position().y - pwhtxt.height*.9);
   //sliderMurate.changed(adjMurate); // this event only fires after the slider is changed.
-
 }

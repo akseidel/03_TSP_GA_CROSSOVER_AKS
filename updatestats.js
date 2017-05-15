@@ -4,7 +4,7 @@
 // Show the BestEver stats
 function StatsBestEver(){
   genbepbet();
-  var txt = ["Dist: " + nfc(bestEver.calcDistance(),2,1), "Route: " + evolHist.length,  nfc(bep,3) + "% at " + nfc(bet) ,"Pool: "+ nfc(gen*popTotal)  ];
+  var txt = ["Dist: " + nfc(bestEver.calcDistance(),2,1), "Route: " + evolHist.length,  nfc(bep,3) + "% at " + nfc(bet) ,"Pool: "+ nfc(membTotal)  ]
   txtB1 = tyo + 4;
   msgLine(txt,txo,txtB1,"   ");
   txt = ["BestEver, " + totalCities + " TSP"];
