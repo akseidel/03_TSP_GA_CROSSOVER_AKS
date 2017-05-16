@@ -50,6 +50,9 @@ One is the total history curve and the paler, thinner yellow curve represents th
 * Checkbox &ndash; **DNA Crossover:**
   - The GA reproduction does a simple DNA crossover when generating the next members.
   - The single wild DNA can still occur if checked when crossovers are not to occur.
+* Input &ndash; **Limit Total Evolutions To:**
+  - Set a stopping point. The default value is Infinity. The number placed here is the number of routes generated where the process stops.
+  - You can use this input to halt the process. Type in a 1 or any number smaller than the current pool count. The generation process stops but the history section UI still functions. Type in a -1 to pick up the process where it had been halted. The Infinity value will be entered for you.
 
 **The Genetic Algorithm (GA)**
 
