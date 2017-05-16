@@ -38,6 +38,7 @@ var population = [];
 var popTotal = 1400;
 var membTotal = 0;
 var popChange = false; // flag to change population on the fly
+var memberLimit = Infinity;
 
 // Evolution history
 var evolHist = [];
@@ -63,7 +64,7 @@ function setup() {
   makeAllNewRandomDNA();
   // Do the DOM
   DOMinator();
-}
+} // end setup
 
 function draw() {
   background(backColor);
@@ -73,8 +74,13 @@ function draw() {
   var minDist = Infinity;
   var maxDist = 0;
 
+if (membTotal <= memberLimit){
   // Search for the best this round and overall
   for (var i = 0; i < population.length; i++) {
+    if (membTotal >= memberLimit){
+      // we want to hit the memberLimit exactly
+      break;
+    }
     membTotal += 1;
     var d = population[i].calcDistance();
     // Is this the best ever?
@@ -94,7 +100,8 @@ function draw() {
     if (d > maxDist) {
       maxDist = d;
     }
-  }
+  } // end for
+} // end limit check
 
   // Show history
   ShowHistory();
@@ -172,7 +179,7 @@ function draw() {
   }
   // New population
   population = newPop;
-}
+} // end draw
 
 function judgeFitnessNormalize(minDist, maxDist){
   // Map all the fitness values between 0 and 1
@@ -256,6 +263,15 @@ function getPopInput(){
   }
 }
 
+function adjMemberLimit(){
+  if (limInput.value() >= 0){
+    memberLimit = limInput.value();
+  } else {
+    memberLimit = Infinity;
+    limInput.elt.value = Infinity;
+  }
+}
+
 // restart initializations
 function doReStart(){
   if (ncInput.value() >= 4){
@@ -320,4 +336,13 @@ function DOMinator(){
   chkboxDC.position(pdctxt.position().x + textWidth(dctxt) + 18, pdctxt.position().y - pdctxt.height*.1);
   chkboxDC.attribute('checked', null);
   chkboxDC.changed(setCrossOverFlag); // handle on the fly crossover change
+
+  var limtxt =  "Limit Total Evolutions To: ";
+  plimtxt = createP(limtxt);
+  plimtxt.position(inpnctxt.position().x , pdctxt.position().y - pdctxt.height*.9);
+  limInput = createInput(memberLimit);
+  limInput.changed(adjMemberLimit); // handle on the fly memberLimit changed
+  limInput.size(150);
+  limInput.position(plimtxt.position().x + textWidth(limtxt) + 26, pdctxt.position().y - limInput.height*.2);
+
 }
