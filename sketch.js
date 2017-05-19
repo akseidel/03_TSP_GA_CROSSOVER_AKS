@@ -74,7 +74,7 @@ function draw() {
   var minDist = Infinity;
   var maxDist = 0;
 
-if (membTotal <= memberLimit){
+  if (membTotal <= memberLimit){
   // Search for the best this round and overall
   for (var i = 0; i < population.length; i++) {
     if (membTotal >= memberLimit){
@@ -291,26 +291,42 @@ function doReStart(){
   evolHCurve.splice(0,evolHCurve.length);
 }
 
+// reset initializations with same cities
+function doReSet(){
+  getPopInput();
+  population.splice(0,population.length);
+  makeAllNewRandomDNA();
+  recordDistance = Infinity;
+  membTotal = 0;
+  bestLast.splice(0,bestLast.length);
+  evolHist.splice(0,evolHist.length);
+  evolHCurve.splice(0,evolHCurve.length);
+}
+
 // create the DOM elements
 function DOMinator(){
-  createP("");
-  butRestart = createButton('Restart (New Routes etc.)');
+  var Line01 = createP("");
+  butRestart = createButton('Restart (All New Cities)');
   butRestart.mousePressed(doReStart);//reStart);
+
+  var Line02 = createP("");
+  butReset = createButton('Reset (Use Same Cities)');
+  butReset.mousePressed(doReSet);
 
   var nctxt =  "Number Of Cities: ";
   inpnctxt = createP(nctxt);
-  inpnctxt.position(butRestart.position().x +  butRestart.width + 10 ,butRestart.position().y - butRestart.height*.5);
+  inpnctxt.position(butRestart.position().x +  butRestart.width + 10 ,butReset.position().y - butReset.height*.5);
   ncInput = createInput(totalCities);
   ncInput.size(36);
-  ncInput.position(inpnctxt.position().x + textWidth(nctxt) + 26, butRestart.position().y - butRestart.height*.2);
+  ncInput.position(inpnctxt.position().x + textWidth(nctxt) + 26, butReset.position().y - butReset.height*.2);
 
   var poptxt =  "Population Pool Size: ";
   ppoptxt = createP(poptxt);
-  ppoptxt.position(ncInput.position().x + ncInput.width + 10, butRestart.position().y - butRestart.height*.5);
+  ppoptxt.position(ncInput.position().x + ncInput.width + 10, butReset.position().y - butReset.height*.5);
   popInput = createInput(popTotal);
   popInput.changed(adjPopTotal); // handle on the fly popTotal changed
   popInput.size(48);
-  popInput.position(ppoptxt.position().x + textWidth(poptxt) + 26, butRestart.position().y - butRestart.height*.2);
+  popInput.position(ppoptxt.position().x + textWidth(poptxt) + 26, butReset.position().y - butReset.height*.2);
 
   var whtxt = "Inject Wild DNA: ";
   pwhtxt = createP(whtxt);
