@@ -74,7 +74,7 @@ function draw() {
   var minDist = Infinity;
   var maxDist = 0;
 
-if (membTotal <= memberLimit){
+  if (membTotal <= memberLimit){
   // Search for the best this round and overall
   for (var i = 0; i < population.length; i++) {
     if (membTotal >= memberLimit){
@@ -306,11 +306,11 @@ function doReSet(){
 // create the DOM elements
 function DOMinator(){
   var Line01 = createP("");
-  butRestart = createButton('Restart (New Cities etc.)');
+  butRestart = createButton('Restart (All New Cities)');
   butRestart.mousePressed(doReStart);//reStart);
 
   var Line02 = createP("");
-  butReset = createButton('Reset (Same Cities)');
+  butReset = createButton('Reset (Use Same Cities)');
   butReset.mousePressed(doReSet);
 
   var nctxt =  "Number Of Cities: ";
