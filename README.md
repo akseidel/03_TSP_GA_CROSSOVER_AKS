@@ -36,8 +36,10 @@ One is the total history curve and the paler, thinner yellow curve represents th
 
 ![ScreenShot](./images/ScreenShot03.png)
 
-* Button &ndash; **Restart(New Routes etc.)**
-  - Restarts the evolution from scratch using the control settings indicated.
+* Button &ndash; **Restart(New Cities etc.)**
+  - Restarts the evolution for a new set of cities from scratch using the control settings indicated.
+* Button &ndash; **Reset(Same Cities)**
+  - Restarts the evolution with the same set of cities from scratch using the control settings indicated.
 * Input &ndash; **Number Of Cities**
   - Sets the number of cities. This number must be 4 or larger.
 * Input &ndash; **Population Pool Size**
