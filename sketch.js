@@ -342,7 +342,7 @@ function DOMinator(){
 
   sliderMurate = createSlider(0, 100, murate*100);
   sliderMurate.position(inpnctxt.position().x  ,pwhtxt.position().y );
-  var muratetxt = murate + " Random One Position Mutation Rate";
+  var muratetxt = murate + " Random One Position Mutation Rate (ROPMR)";
   slMuratetxt = createP(muratetxt);
   slMuratetxt.position(sliderMurate.position().x +  sliderMurate.width + 10 ,pwhtxt.position().y - pwhtxt.height*.9);
   //sliderMurate.changed(adjMurate); // this event only fires after the slider is changed.

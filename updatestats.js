@@ -4,18 +4,29 @@
 // Show the BestEver stats
 function StatsBestEver(){
   genbepbet();
-  var txt = ["Dist: " + nfc(bestEver.calcDistance(),2,1), "Route: " + evolHist.length,  nfc(bep,3) + "% at " + nfc(bet) ,"Pool: "+ nfc(membTotal)  ]
+  var txt = ["Dist: " + nfc(bestEver.calcDistance(),2,1),
+            "Route: " + evolHist.length,
+            nfc(bep,3) + "% at " + nfc(bet),
+            "Pool: "+ nfc(membTotal)]
   txtB1 = tyo + 4;
   msgLine(txt,txo,txtB1,"   ");
-  txt = ["BestEver, " + totalCities + " TSP"];
+  txt = ["Best, " + totalCities + " TSP"];
   txtB1 = tyo + 4;
   msgLine(txt, width - txo - textWidth(txt),txtB1,"");
+
+  txt = ["Pool Size: " + popTotal,
+        "Crossover: "+ doCrossOver,
+        "Inject Wild DNA: " + addWild,
+        "ROPMR: " + murate,
+        "Will Stop At: " + nfc(memberLimit)]
+  msgLine(txt, txo ,height/2 - 8,"   ");
 }
 // Shows the BestLast stats
 function StatsBestLast(){
   genlcplct();
   var rt = scrubHistory();
-  var txt = ["Dist: " + nfc(bestLast[rt].calcDistance(),2,1), "Route: " + rt + "   "  + nfc(lcp,3) + "% at " + nfc(lct)];
+  var txt = ["Dist: " + nfc(bestLast[rt].calcDistance(),2,1),
+            "Route: " + rt + "   "  + nfc(lcp,3) + "% at " + nfc(lct)];
   txtB1 = tyo + 4;
   msgLine(txt,txo,txtB1,"   ");
   txt = ["History, " + totalCities + " TSP"];
