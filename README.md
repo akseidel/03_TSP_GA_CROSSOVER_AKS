@@ -40,6 +40,8 @@ One is the total history curve and the paler, thinner yellow curve represents th
 
 * Button &ndash; **Restart(All New Cities)**
   - Restarts the evolution for a new set of cities from scratch using the control settings indicated.
+* Button &ndash; **See ReadMe**
+  - Opens this application's ReadMe file at Github to substitute for instructions.
 * Button &ndash; **Reset(Use Same Cities)**
   - Restarts the evolution with the same set of cities from scratch using the control settings indicated.
 * Input &ndash; **Number Of Cities**
@@ -60,10 +62,10 @@ One is the total history curve and the paler, thinner yellow curve represents th
 
 **The Genetic Algorithm (GA)**
 
-* A population of travel order routes is graded by total travel distance. That travel distance is normalized over the population and stored as a fitness property for each member in the population pool. The population is then sorted by its fitness value.
-  * Because the fitness property is normalized to be a value from 0 to 1, a random number generated between 0 and 1 can be mapped into the normalized fitness properties in a way that favors one side of the normalization. A method based on that principle is used to select from the population when reproducing for the next generation. The effect tends to select the better fitness members.
+* A population of travel order routes is graded by total travel distance. That travel distance is normalized over the population and stored as a fitness property for each member in the population pool. The normalized fitness property is a number between 0 and 1 where numbers closer to 1 are better fitness. The population is then sorted by its fitness value.
+  * Because the fitness property is normalized to be a value from 0 to 1, a random number generated between 0 and 1 can be mapped into the normalized fitness properties in a way that favors the higher fitness numbers. A method based on that principle is used to select from the population when reproducing for the next generation. The effect tends to select the members having the better fitness property.
 * A new population of travel order routes is created by combining pieces of a pair of order routes selected using the better fitting members selection method.
-  * The piece combination process is a mock crossover method where positions in one travel order pair are selected at random to mark where the route order is deleted. The route order collapses around the deleted section. The missing cities are then selected from the start of the other travel order, ignoring any cities that are already present in the new route order.
+  * The piece combination process is a mock crossover method where positions in one travel order pair are selected at random to mark where the route order is deleted. The route order collapses around the deleted section. The cities missing from the route section are then selected from the start of the other travel order, ignoring any cities that are already present in the new route order.
   * The **Inject Wild DNA** option uses one random route routing for one of the crossover pairs when creating one of the next population pools.
 * After crossover, each population pool route order member is subjected to the chance that one of its route cities will be swapped with another one of its route cities. The chance that this happens is controlled by the **Random One Position Mutation Rate**.
     * At this point the new population has been created. It is ready to be evaluated for fitness.

@@ -312,6 +312,10 @@ function DOMinator(){
   butRestart = createButton('Restart (All New Cities)');
   butRestart.mousePressed(doReStart);//reStart);
 
+  butReadMe = createButton('See ReadMe');
+  butReadMe.mousePressed(seeReadMe);
+  butReadMe.position(width  - butReadMe.width, butRestart.position().y);
+
   var Line02 = createP("");
   butReset = createButton('Reset (Use Same Cities)');
   butReset.mousePressed(doReSet);
@@ -364,4 +368,15 @@ function DOMinator(){
   limInput.size(150);
   limInput.position(plimtxt.position().x + textWidth(limtxt) + 26, pdctxt.position().y - limInput.height*.2);
 
+}
+
+function seeReadMe(){
+  var winName = "GA Crossover Information";
+  var url = "https://github.com/akseidel/03_TSP_GA_CROSSOVER_AKS/blob/master/README.md";
+  var options = "resizable,scrollbars";
+  link(url,winName,options);
+}
+
+function link(url, winName, options) {
+  winName && open(url, winName, options) || (location = url);
 }
