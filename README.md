@@ -60,7 +60,7 @@ One is the total history curve and the paler, thinner yellow curve represents th
 
 **The Genetic Algorithm (GA)**
 
-* A population of travel order routes is graded by total travel distance. That travel distance is normalized over the population and stored as a fitness property for each member in the population pool.
+* A population of travel order routes is graded by total travel distance. That travel distance is normalized over the population and stored as a fitness property for each member in the population pool. The population is then sorted by its fitness value.
   * Because the fitness property is normalized to be a value from 0 to 1, a random number generated between 0 and 1 can be mapped into the normalized fitness properties in a way that favors one side of the normalization. A method based on that principle is used to select from the population when reproducing for the next generation. The effect tends to select the better fitness members.
 * A new population of travel order routes is created by combining pieces of a pair of order routes selected using the better fitting members selection method.
   * The piece combination process is a mock crossover method where positions in one travel order pair are selected at random to mark where the route order is deleted. The route order collapses around the deleted section. The missing cities are then selected from the start of the other travel order, ignoring any cities that are already present in the new route order.
