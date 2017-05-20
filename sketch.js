@@ -32,6 +32,7 @@ var bep = 0; // last change % best ever
 var bet = 0; // time of last change best ever
 var lcp = 0; // last change % scrub
 var lct = 0; // time of last change scrub
+var strROPMR = " Random One Position Mutation Rate (ROPMR)";
 
 // Population of possible routes
 var population = [];
@@ -254,7 +255,7 @@ function setCrossOverFlag(){
 function adjMurate(){
   murate  = sliderMurate.value()/100;
   // update the DOMs
-  slMuratetxt.elt.innerText = murate + " Random One Position Mutation Rate";
+  slMuratetxt.elt.innerText = murate + strROPMR;
 }
 
 function getPopInput(){
@@ -346,7 +347,7 @@ function DOMinator(){
 
   sliderMurate = createSlider(0, 100, murate*100);
   sliderMurate.position(inpnctxt.position().x  ,pwhtxt.position().y );
-  var muratetxt = murate + " Random One Position Mutation Rate (ROPMR)";
+  var muratetxt = murate + strROPMR;
   slMuratetxt = createP(muratetxt);
   slMuratetxt.position(sliderMurate.position().x +  sliderMurate.width + 10 ,pwhtxt.position().y - pwhtxt.height*.9);
   //sliderMurate.changed(adjMurate); // this event only fires after the slider is changed.
