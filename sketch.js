@@ -191,25 +191,28 @@ function judgeFitnessNormalize(minDist, maxDist){
   for (var i = 0; i < population.length; i++) {
     population[i].normalizeFitness(sum);
   }
+  // sort the population based upon the normalized fitness
+  population.sort(function(a, b) {
+    return a.fitness - b.fitness;
+  });
 }
 
 // This is a new algorithm to select based on fitness probability.
-// It only works if all the fitness values are normalized and add up to 1
+// It only works if all the fitness values are normalized and add up to 1.
+// And if the list is sorted by the fitness.
 function pickOne() {
-  // Start at 0
-  var index = 0;
+  // Start at -1
+  var index = -1;
   // Pick a random number between 0 and 1
   var r = random(1);
   // Keep subtracting probabilities until you get less than zero
   // Higher probabilities will be more likely to be picked since they will
   // subtract a larger number towards zero
   while (r > 0) {
-    r -= population[index].fitness;
     // And move on to the next
     index += 1;
+    r -= population[index].fitness;
   }
-  // Go back one
-  index -= 1;
   return population[index];
 }
 
