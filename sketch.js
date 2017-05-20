@@ -341,7 +341,8 @@ function DOMinator(){
   chkboxWH = createInput();
   chkboxWH.size(14,14);
   chkboxWH.attribute("type","checkbox");
-  chkboxWH.position(pwhtxt.position().x + textWidth(whtxt) + 18, pwhtxt.position().y - pwhtxt.height*.1);
+  var chPos = pwhtxt.position().x + textWidth(whtxt) + 18;
+  chkboxWH.position(chPos, pwhtxt.position().y - pwhtxt.height*.1);
   //chkboxWH.attribute('checked', null);
   chkboxWH.changed(addWildHair); // handle on the fly wild hair change
 
@@ -357,7 +358,7 @@ function DOMinator(){
   chkboxDC = createInput();
   chkboxDC.size(14,14);
   chkboxDC.attribute("type","checkbox");
-  chkboxDC.position(pdctxt.position().x + textWidth(dctxt) + 18, pdctxt.position().y - pdctxt.height*.1);
+  chkboxDC.position(chPos , pdctxt.position().y - pdctxt.height*.1);
   chkboxDC.attribute('checked', null);
   chkboxDC.changed(setCrossOverFlag); // handle on the fly crossover change
 
@@ -367,7 +368,7 @@ function DOMinator(){
   limInput = createInput(memberLimit);
   limInput.changed(adjMemberLimit); // handle on the fly memberLimit changed
   limInput.size(150);
-  limInput.position(plimtxt.position().x + textWidth(limtxt) + 26, pdctxt.position().y - limInput.height*.2);
+  limInput.position(plimtxt.position().x + textWidth(limtxt) + 36, pdctxt.position().y - limInput.height*.2);
 
 }
 
