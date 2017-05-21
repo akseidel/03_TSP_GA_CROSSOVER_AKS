@@ -89,7 +89,10 @@ DNA.prototype.show = function() {
   beginShape();
   for (var i = 0; i < this.order.length; i++) {
     var n = this.order[i];
-    vertex(cities[n].x, cities[n].y);
+    // need to remap to a local coordinate system
+    var x = map(cities[n].x,cityMinX,cityMaxX, 2 * dmargin, canWidth - (2 * dmargin));
+    var y = map(cities[n].y,cityMinY,cityMaxY,0.5 * canHeight - (2 * dmargin), 2*dmargin );
+    vertex(x,y);
   }
   endShape(CLOSE);
 
@@ -103,7 +106,10 @@ DNA.prototype.show = function() {
       fill(routeColor);
     }
     var n = this.order[i];
-    ellipse(cities[n].x, cities[n].y, 6, 6);
+    // need to remap to a local coordinate system
+    var x = map(cities[n].x,cityMinX,cityMaxX,2*dmargin,canWidth - (2 * dmargin));
+    var y = map(cities[n].y,cityMinY,cityMaxY, 0.5 * canHeight - (2 * dmargin), 2*dmargin );
+    ellipse(x, y, 6, 6);
   }
 }
 

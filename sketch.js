@@ -33,6 +33,21 @@ var bet = 0; // time of last change best ever
 var lcp = 0; // last change % scrub
 var lct = 0; // time of last change scrub
 var strROPMR = " Random One Position Mutation Rate (ROPMR)";
+var cityMinX;
+var cityMaxX;
+var cityMinY;
+var cityMaxY;
+
+// DOM constants
+var nctxt =  "Number Of Cities: ";
+var poptxt =  "Population Pool Size: ";
+var whtxt = "Inject Wild DNA: ";
+var dctxt = "DNA Crossover: ";
+var limtxt =  "Limit Total Evolutions To: ";
+
+// canvas sizes
+var canWidth;
+var canHeight;
 
 // Population of possible routes
 var population = [];
@@ -58,7 +73,10 @@ function setup() {
   backColor = color(0,0,100);
   routeColor = color(255,255,255);
   firstColor = color(0,255,0);
-  canvas = createCanvas(600, 600);
+  //canvas = createCanvas(600, 600);
+  setCanSizes();
+  canvas = createCanvas(canWidth, canHeight);
+//canvas.size(windowWidth*.96, windowHeight*.75);
   canvas.parent('canvascontainer');
   // initializations
   startNewCitySet();
@@ -66,6 +84,17 @@ function setup() {
   // Do the DOM
   DOMinator();
 } // end setup
+
+function windowResized() {
+  setCanSizes();
+  resizeCanvas(windowWidth*.96, windowHeight*.75);
+  DOMpositions();
+}
+
+function setCanSizes(){
+  canWidth = windowWidth*.96;
+  canHeight = windowHeight*.75;
+}
 
 function draw() {
   background(backColor);
@@ -112,9 +141,9 @@ function draw() {
   }
 
   // splitting the screen
-  translate(0, height / 2);
+  translate(0, canHeight / 2);
   stroke(textColor);
-  line(0, 0, width, 0);
+  line(0, 0, canWidth, 0);
 
   // Show the bestever stats
   bestEver.show();
@@ -219,10 +248,20 @@ function pickOne() {
 
 // make a new set of cities
 function startNewCitySet(){
+  cityMinX = Infinity;
+  cityMinY = Infinity;
+  cityMaxX = 0;
+  cityMaxY = 0;
   // Make random cities
   for (var i = 0; i < totalCities; i++) {
-    var v = createVector(random(dmargin, width - dmargin), random(dmargin, height / 2 - dmargin));
+    var x = random(dmargin, width - dmargin);
+    var y = random(dmargin, height / 2 - dmargin);
+    var v = createVector(x, y);
     cities[i] = v;
+    if (x < cityMinX ) {cityMinX = x};
+    if (y < cityMinY ) {cityMinY = y};
+    if (x > cityMaxX ) {cityMaxX = x};
+    if (y > cityMaxY ) {cityMaxY = y};
   }
 }
 
@@ -321,14 +360,12 @@ function DOMinator(){
   butReset = createButton('Reset (Use Same Cities)');
   butReset.mousePressed(doReSet);
 
-  var nctxt =  "Number Of Cities: ";
   inpnctxt = createP(nctxt);
   inpnctxt.position(butRestart.position().x +  butRestart.width + 10 ,butReset.position().y - butReset.height*.5);
   ncInput = createInput(totalCities);
   ncInput.size(36);
   ncInput.position(inpnctxt.position().x + textWidth(nctxt) + 26, butReset.position().y - butReset.height*.2);
 
-  var poptxt =  "Population Pool Size: ";
   ppoptxt = createP(poptxt);
   ppoptxt.position(ncInput.position().x + ncInput.width + 10, butReset.position().y - butReset.height*.5);
   popInput = createInput(popTotal);
@@ -336,7 +373,6 @@ function DOMinator(){
   popInput.size(48);
   popInput.position(ppoptxt.position().x + textWidth(poptxt) + 26, butReset.position().y - butReset.height*.2);
 
-  var whtxt = "Inject Wild DNA: ";
   pwhtxt = createP(whtxt);
   chkboxWH = createInput();
   chkboxWH.size(14,14);
@@ -353,7 +389,6 @@ function DOMinator(){
   slMuratetxt.position(sliderMurate.position().x +  sliderMurate.width + 10 ,pwhtxt.position().y - pwhtxt.height*.9);
   //sliderMurate.changed(adjMurate); // this event only fires after the slider is changed.
 
-  var dctxt = "DNA Crossover: ";
   pdctxt = createP(dctxt);
   chkboxDC = createInput();
   chkboxDC.size(14,14);
@@ -362,7 +397,6 @@ function DOMinator(){
   chkboxDC.attribute('checked', null);
   chkboxDC.changed(setCrossOverFlag); // handle on the fly crossover change
 
-  var limtxt =  "Limit Total Evolutions To: ";
   plimtxt = createP(limtxt);
   plimtxt.position(inpnctxt.position().x , pdctxt.position().y - pdctxt.height*.9);
   limInput = createInput(memberLimit);
@@ -370,7 +404,26 @@ function DOMinator(){
   limInput.size(150);
   limInput.position(plimtxt.position().x + textWidth(limtxt) + 36, pdctxt.position().y - limInput.height*.2);
 
+  //DOMpositions();
 }
+
+// a means to separate the DOM positioning from the DOM
+// creations
+function DOMpositions(){
+  butReadMe.position(width  - butReadMe.width, butRestart.position().y);
+  inpnctxt.position(butRestart.position().x +  butRestart.width + 10 ,butReset.position().y - butReset.height*.5);
+  ncInput.position(inpnctxt.position().x + textWidth(nctxt) + 26, butReset.position().y - butReset.height*.2);
+  ppoptxt.position(ncInput.position().x + ncInput.width + 10, butReset.position().y - butReset.height*.5);
+  popInput.position(ppoptxt.position().x + textWidth(poptxt) + 26, butReset.position().y - butReset.height*.2);
+  var chPos = pwhtxt.position().x + textWidth(whtxt) + 18;
+  chkboxWH.position(chPos, pwhtxt.position().y - pwhtxt.height*.1);
+  sliderMurate.position(inpnctxt.position().x  ,pwhtxt.position().y );
+  slMuratetxt.position(sliderMurate.position().x +  sliderMurate.width + 10 ,pwhtxt.position().y - pwhtxt.height*.9);
+  chkboxDC.position(chPos , pdctxt.position().y - pdctxt.height*.1);
+  plimtxt.position(inpnctxt.position().x , pdctxt.position().y - pdctxt.height*.9);
+  limInput.position(plimtxt.position().x + textWidth(limtxt) + 36, pdctxt.position().y - limInput.height*.2);
+}
+
 
 function seeReadMe(){
   var winName = "GA Crossover Information";
