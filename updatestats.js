@@ -10,9 +10,9 @@ function StatsBestEver(){
             "Pool: "+ nfc(membTotal)]
   txtB1 = tyo + 4;
   msgLine(txt,txo,txtB1,"   ");
-  txt = ["Best, " + totalCities + " TSP"];
+  txt = ["Best So Far, " + totalCities + " TSP"];
   txtB1 = tyo + 4;
-  msgLine(txt, width - txo - textWidth(txt),txtB1,"");
+  msgLine(txt, canWidth - txo - textWidth(txt),txtB1,"");
 
   txt = ["Pool Size: " + popTotal,
         "Crossover: "+ doCrossOver,
@@ -31,7 +31,7 @@ function StatsBestLast(){
   msgLine(txt,txo,txtB1,"   ");
   txt = ["History, " + totalCities + " TSP"];
   txtB1 = tyo + 4;
-  msgLine(txt, width - txo - textWidth(txt),txtB1,"");
+  msgLine(txt, canWidth - txo - textWidth(txt),txtB1,"");
 }
 // Draws graph showing relative improvement over generations
 function ShowHistory(){
@@ -49,8 +49,8 @@ function ShowHistory(){
   // history curve up to the scrubHistory only
   beginShape();
   for (var i = 0; i <= hindx; i++ ){
-    var x = map(evolHist[i].x,eHMinX,eHMaxX,dmargin,width - dmargin);
-    var y = map(evolHist[i].y,eHMinY,eHMaxY,height/2 - dmargin/2, dmargin + dmargin/2);
+    var x = map(evolHist[i].x,eHMinX,eHMaxX,dmargin,canWidth - dmargin);
+    var y = map(evolHist[i].y,eHMinY,eHMaxY,canHeight/2 - dmargin/2, dmargin + dmargin/2);
     vertex(x, y);
     ellipse(x,y, 2, 2);
   }
@@ -61,8 +61,8 @@ function ShowHistory(){
   eHMinY = evolHist[evolHist.length-1].y;
   beginShape();
   for (var i = 0; i <= evolHist.length-1; i++ ){
-    var x = map(evolHist[i].x,eHMinX,eHMaxX,dmargin,width - dmargin);
-    var y = map(evolHist[i].y,eHMinY,eHMaxY,height/2 - dmargin/2, dmargin + dmargin/2);
+    var x = map(evolHist[i].x,eHMinX,eHMaxX,dmargin,canWidth - dmargin);
+    var y = map(evolHist[i].y,eHMinY,eHMaxY,canHeight/2 - dmargin/2, dmargin + dmargin/2);
     vertex(x, y);
     ellipse(x,y, 2, 2);
     if (i > (evolHCurve.length-1)){
@@ -76,8 +76,8 @@ function ShowHistory(){
   stroke(255,110,0);
   eHMaxX = evolHist[evolHist.length-1].x;
   eHMinY = evolHist[evolHist.length-1].y;
-  var x = map(evolHist[hindx-1].x,eHMinX,eHMaxX,dmargin,width - dmargin);
-  var y = map(evolHist[hindx-1].y,eHMinY,eHMaxY,height/2 - dmargin/2, dmargin + dmargin/2);
+  var x = map(evolHist[hindx-1].x,eHMinX,eHMaxX,dmargin,canWidth - dmargin);
+  var y = map(evolHist[hindx-1].y,eHMinY,eHMaxY,canHeight/2 - dmargin/2, dmargin + dmargin/2);
   ellipse(x,y, 4, 4);
 }
 
@@ -123,8 +123,8 @@ function msgLine(txtItems,txo,tyo,spc){
 // to the mapped mouseX.
 function scrubHistory(){
   var x = evolHist.length-1; // default value
-  if (mouseY < height/2){
-    var rSide = width - dmargin;
+  if (mouseY < canHeight/2){
+    var rSide = canWidth - dmargin;
     if(mouseX >= dmargin && mouseX <= rSide){
       x = floor(map(mouseX,dmargin,rSide,1,evolHist.length-1));
     }
