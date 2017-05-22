@@ -11,6 +11,7 @@ var textColor ;
 var backColor ;
 var routeColor ;
 var firstColor ;
+var travColor ;
 
 // Cities
 var cities = [];
@@ -37,6 +38,7 @@ var cityMinX;
 var cityMaxX;
 var cityMinY;
 var cityMaxY;
+var showNumbers = false;
 
 // DOM constants
 var nctxt =  "Number Of Cities: ";
@@ -73,6 +75,7 @@ function setup() {
   backColor = color(0,0,100);
   routeColor = color(255,255,255);
   firstColor = color(0,255,0);
+  travColor = color(255,0,0);
   //canvas = createCanvas(600, 600);
   setCanSizes();
   canvas = createCanvas(canWidth, canHeight);
@@ -352,6 +355,10 @@ function DOMinator(){
   butRestart = createButton('Restart (All New Cities)');
   butRestart.mousePressed(doReStart);//reStart);
 
+  butNumbers = createButton('Show Order');
+  butNumbers.mousePressed(togNumbers);
+  butNumbers.elt.style.marginLeft = 20;
+
   butReadMe = createButton('See ReadMe');
   butReadMe.mousePressed(seeReadMe);
   butReadMe.position(width  - butReadMe.width, butRestart.position().y);
@@ -434,4 +441,13 @@ function seeReadMe(){
 
 function link(url, winName, options) {
   winName && open(url, winName, options) || (location = url);
+}
+
+function togNumbers(){
+  showNumbers = !showNumbers;
+  if (showNumbers){
+    butNumbers.elt.innerText = 'Hide Order';
+  }else{
+    butNumbers.elt.innerText = 'Show Order';
+  }
 }

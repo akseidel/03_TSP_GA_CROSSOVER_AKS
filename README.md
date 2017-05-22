@@ -40,6 +40,8 @@ One is the total history curve and the paler, thinner yellow curve represents th
 
 * Button &ndash; **Restart(All New Cities)**
   - Restarts the evolution for a new set of cities from scratch using the control settings indicated.
+* Button &ndash; **Show Order/Hide Order**
+  - Toggles showing the city numbers that indicate the travel path order. This can be useful when travel paths appear to cross exactly at a city. The city numbers will show which paths actually involve the city.
 * Button &ndash; **See ReadMe**
   - Opens this application's ReadMe file at Github to substitute for instructions.
 * Button &ndash; **Reset(Use Same Cities)**

@@ -109,6 +109,7 @@ function genbepbet(){
 //
 function msgLine(txtItems,txo,tyo,spc){
   textSize(12);
+  stroke(textColor);
   fill(textColor);
   var statLine = "";
   txtItems.forEach(function(txtitem){statLine += txtitem + spc});

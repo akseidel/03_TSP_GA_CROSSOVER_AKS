@@ -111,6 +111,7 @@ DNA.prototype.show = function() {
     var y = map(cities[n].y,cityMinY,cityMaxY, 0.5 * canHeight - (2 * dmargin), 2*dmargin );
     ellipse(x, y, 6, 6);
   }
+  if (showNumbers) {showNumber(this);}
 }
 
 // This is one way to crossover two paths
@@ -141,4 +142,18 @@ DNA.prototype.crossover = function(other) {
     i++;
   }
   return neworder;
+}
+
+
+// shows the city order
+function showNumber(bethis){
+  for (var i = 0; i < bethis.order.length; i++) {
+    n = bethis.order[i];
+    var x = map(cities[n].x,cityMinX,cityMaxX,2*dmargin,canWidth - (2 * dmargin));
+    var y = map(cities[n].y,cityMinY,cityMaxY, 0.5 * canHeight - (2 * dmargin), 2*dmargin );
+    textSize(10);
+    stroke(travColor);
+    fill(travColor);
+    text(i+1, x+txo, y+tyo);
+  }
 }
