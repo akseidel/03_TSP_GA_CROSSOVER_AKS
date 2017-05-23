@@ -379,6 +379,7 @@ function DOMinator(){
   ppoptxt = createP(poptxt);
   ppoptxt.position(ncInput.position().x + ncInput.width + 10, butReset.position().y - butReset.height*.5);
   popInput = createInput(popTotal);
+  popInput.changed(popInpChanged);
   popInput.changed(adjPopTotal); // handle on the fly popTotal changed
   popInput.size(48);
   popInput.position(ppoptxt.position().x + textWidth(poptxt) + 26, butReset.position().y - butReset.height*.2);
@@ -456,12 +457,26 @@ function togNumbers(){
 }
 
 function  ncInpChanged(){
-  var nc = ncInput.value();
-  if (Number.isNaN){
+  var nc = parseInt(ncInput.value());
+  if (Number.isInteger(nc)){
+    if (nc > 100){
+      totalCities = 100;
+      ncInput.elt.value = totalCities;
+    } else {
+      totalCities = nc;
+    }
+  } else {
     ncInput.elt.value = totalCities;
   }
-  if (nc > 100){
-    totalCities = 100;
-    ncInput.elt.value = totalCities;
+}
+
+function  popInpChanged(){
+  var p = parseInt(popInput.value());
+  if (!Number.isInteger(p)){
+    popInput.elt.value = popTotal;
+  }
+  if (p > 8000){
+    popTotal = 8000;
+    popInput.elt.value = popTotal;
   }
 }
