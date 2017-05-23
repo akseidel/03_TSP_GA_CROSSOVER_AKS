@@ -320,6 +320,7 @@ function adjMemberLimit(){
 
 // restart initializations
 function doReStart(){
+  // we are leaving this check here.
   if (ncInput.value() >= 4){
     totalCities = ncInput.value();
   } else {
@@ -456,14 +457,20 @@ function togNumbers(){
   }
 }
 
+
+// ncInpChanged comforms the number of cities input
+// values but DOES NOT change the totalCities variable
+// because doing that affects the Use Same City
+// operation.
 function  ncInpChanged(){
   var nc = parseInt(ncInput.value());
   if (Number.isInteger(nc)){
+    if (nc < 4) {
+      ncInput.value(4);
+      return;
+    }
     if (nc > 100){
-      totalCities = 100;
-      ncInput.elt.value = totalCities;
-    } else {
-      totalCities = nc;
+      ncInput.elt.value = 100;
     }
   } else {
     ncInput.elt.value = totalCities;
