@@ -458,7 +458,7 @@ function togNumbers(){
 }
 
 
-// ncInpChanged comforms the number of cities input
+// ncInpChanged conforms the number of cities input
 // values but DOES NOT change the totalCities variable
 // because doing that affects the Use Same City
 // operation.
@@ -470,20 +470,23 @@ function  ncInpChanged(){
       return;
     }
     if (nc > 100){
-      ncInput.elt.value = 100;
+      ncInput.value(100);
     }
   } else {
-    ncInput.elt.value = totalCities;
+    ncInput.value(totalCities);
   }
 }
 
+// popInpChanged conforms the number of population pool size input
+// values.
 function  popInpChanged(){
   var p = parseInt(popInput.value());
   if (!Number.isInteger(p)){
-    popInput.elt.value = popTotal;
+    //popInput.elt.value = popTotal; // ntf javscript
+    popInput.value(popTotal); // ntf p5.js
   }
   if (p > 8000){
     popTotal = 8000;
-    popInput.elt.value = popTotal;
+    popInput.value(popTotal);
   }
 }
