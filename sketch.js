@@ -367,12 +367,15 @@ function DOMinator(){
   butReset = createButton('Reset (Use Same Cities)');
   butReset.mousePressed(doReSet);
 
+  // number of cities
   inpnctxt = createP(nctxt);
   inpnctxt.position(butRestart.position().x +  butRestart.width + 10 ,butReset.position().y - butReset.height*.5);
   ncInput = createInput(totalCities);
+  ncInput.changed(ncInpChanged);
   ncInput.size(36);
   ncInput.position(inpnctxt.position().x + textWidth(nctxt) + 26, butReset.position().y - butReset.height*.2);
 
+  // pool population size
   ppoptxt = createP(poptxt);
   ppoptxt.position(ncInput.position().x + ncInput.width + 10, butReset.position().y - butReset.height*.5);
   popInput = createInput(popTotal);
@@ -449,5 +452,16 @@ function togNumbers(){
     butNumbers.elt.innerText = 'Hide Order';
   }else{
     butNumbers.elt.innerText = 'Show Order';
+  }
+}
+
+function  ncInpChanged(){
+  var nc = ncInput.value();
+  if (Number.isNaN){
+    ncInput.elt.value = totalCities;
+  }
+  if (nc > 100){
+    totalCities = 100;
+    ncInput.elt.value = totalCities;
   }
 }

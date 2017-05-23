@@ -47,7 +47,7 @@ One is the total history curve and the paler, thinner yellow curve represents th
 * Button &ndash; **Reset(Use Same Cities)**
   - Restarts the evolution with the same set of cities from scratch using the control settings indicated.
 * Input &ndash; **Number Of Cities**
-  - Sets the number of cities. This number must be 4 or larger.
+  - Sets the number of cities. This number must be 4 or larger, but not exceeding 100.
 * Input &ndash; **Population Pool Size**
   - The population size for the pool of travel route orders (i.e. organisms) upon which the GA reproduction is performed. Each member in the pool will be evaluated for distance and judged based upon distance. The pool is constantly being regenerated from members selected from the previous pool.
   - The population size can be changed on the fly. You must press the enter (return) key after making a population size change or you must move the pointer focus out of the population size edit box in order for the change to register.
